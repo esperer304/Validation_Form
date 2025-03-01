@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Registration Form</h1>
+        <form id="registration-form">
+            <div class="form-group">
+                <label for="user-id">User ID</label>
+                <input type="text" id="user-id" name="user_id" required minlength="5" maxlength="12" placeholder="Enter your User ID">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required minlength="7" maxlength="12" placeholder="Enter your Password">
+            </div>
+
+            <div class="form-group">
+                <label for="first-name">First Name</label>
+                <input type="text" id="first-name" name="first_name" required pattern="[A-Za-z\s]+" placeholder="Enter your First Name">
+            </div>
+            
+            <div class="form-group">
+                <label for="middle-name">Middle Name</label>
+                <input type="text" id="middle-name" name="middle_name" pattern="[A-Za-z\s]+" placeholder="Enter your Middle Name (Optional)">
+            </div>
+            
+            <div class="form-group">
+                <label for="last-name">Last Name</label>
+                <input type="text" id="last-name" name="last_name" required pattern="[A-Za-z\s]+" placeholder="Enter your Last Name">
+            </div>
+            <div class="form-group">
+                <label for="dob">Date of Birth</label>
+                <input type="date" id="dob" name="dob" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" required pattern="\d{10}" placeholder="Enter your 10-digit Phone Number">
+            </div>
+            
+            <div class="form-group">
+                <label for="profile-picture">Profile Picture</label>
+                <input type="file" id="profile-picture" name="profile_picture" accept="image/*">
+            </div>
+            
+            <div class="form-group">
+                <label>Hobbies</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="hobby-reading" name="hobbies" value="reading">
+                        <label for="hobby-reading">Reading</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="hobby-sports" name="hobbies" value="sports">
+                        <label for="hobby-sports">Sports</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="hobby-traveling" name="hobbies" value="traveling">
+                        <label for="hobby-traveling">Traveling</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="hobby-music" name="hobbies" value="music">
+                        <label for="hobby-music">Music</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="address">Address</label>
+                <textarea id="address" name="address" placeholder="Enter your Address (Optional)"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="country">Country</label>
+                <select id="country" name="country" required>
+                    <option value="">Please select a country</option>
+                    <option value="us">United States</option>
+                    <option value="uk">United Kingdom</option>
+                    <option value="canada">Canada</option>
+                    <option value="india">India</option>
+                    <option value="australia">Australia</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="zip-code">ZIP Code</label>
+                <input type="text" id="zip-code" name="zip_code" required pattern="\d+" placeholder="Enter your ZIP Code">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required placeholder="Enter your Email">
+            </div>
+
+            <div class="form-group">
+                <label>Sex</label>
+                <div class="radio-group">
+                    <div class="radio-item">
+                        <input type="radio" id="male" name="sex" value="male" required>
+                        <label for="male">Male</label>
+                    </div>
+                    <div class="radio-item">
+                        <input type="radio" id="female" name="sex" value="female" required>
+                        <label for="female">Female</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Language</label>
+                <div class="checkbox-group">
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="english" name="language" value="english" required>
+                        <label for="english">English</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="non-english" name="language" value="non-english">
+                        <label for="non-english">Non English</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="about">About</label>
+                <textarea id="about" name="about" placeholder="Tell us about yourself (Optional)"></textarea>
+            </div>
+
+            <button type="button" id="submit-button">Submit</button>
+        </form>
+    </div>
+
+    <script>
+      document.getElementById("submit-button").addEventListener("click", function() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    // Collect form data
+    const formData = new FormData(document.getElementById("registration-form"));
+    let content = "Registration Form Data:\n\n";
+
+    for (let [key, value] of formData.entries()) {
+        content += `${key}: ${value}\n`;
+    }
+
+    // Add content to PDF
+    doc.text(content, 10, 10);
+
+    // Download the PDF
+    doc.save("registration_form.pdf");
+});
+
+    </script>
+</body>
+</html>
